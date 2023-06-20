@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../NeedCalendar/app/src/main/res/layout/activity_main.xml" value="0.23097826086956522" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NeedCalendar/app/src/main/res/drawable/login_cell.xml" value="0.1055" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NeedCalendar/app/src/main/res/layout/activity_main.xml" value="0.109375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NeedCalendar/app/src/main/res/layout/calendar_cell.xml" value="0.109375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/NeedCalendar/app/src/main/res/layout/calendar_login.xml" value="0.109375" />
       </map>
     </option>
   </component>
