@@ -211,7 +211,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/calendarRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="580dp" />
+            android:layout_height="480dp" />
 
     </LinearLayout>
 
