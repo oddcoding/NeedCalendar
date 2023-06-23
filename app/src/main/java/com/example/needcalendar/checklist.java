@@ -4,16 +4,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.needcalendar.R;
+
 
 public class checklist extends RecyclerView.Adapter<checklist.BoardViewHolder>{
 
     //데이터 리스트
     private List<list> dataList;
-
     public checklist(List<list> dataList){
         this.dataList = dataList;
     }

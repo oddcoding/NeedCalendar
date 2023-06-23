@@ -1,6 +1,11 @@
 package com.example.needcalendar;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class list {
+
+
+
     private String title;
     private String place;
     private String memo;
@@ -36,4 +41,5 @@ public class list {
     public void setMemo(String memo) {
         this.memo = memo;
     }
+
 }

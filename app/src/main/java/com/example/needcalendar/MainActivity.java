@@ -2,18 +2,22 @@ package com.example.needcalendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.annotation.SuppressLint;
+import android.content.Context;
+
+import android.widget.Button;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -21,44 +25,40 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
+{
 
-public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+
+    private ImageButton imageButton;
+
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
-    Dialog dialog1;
-    Button button;
-    Context context;
-    AlertDialog alertDialog;
-
-    private RecyclerView mPostRecyclerView;
-    private checklist mAdapter;
-    private List<list> mDatas;
-
-    @Override
     @SuppressLint("MissingInflatedId")
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
-        context = this;
-        setContentView(R.layout.activity_main);
-        mPostRecyclerView = findViewById(R.id.list_rv);
-        button = findViewById(R.id.item_button);
-        mDatas = new ArrayList<>();
 
-        mDatas.add(new list("title1", "place1", "Memo1"));
-        mDatas.add(new list("title2", "place2", "Memo2"));
-        mDatas.add(new list("title3", "place3", "Memo3"));
-        mDatas.add(new list("title4", "place4", "Memo4"));
-        mDatas.add(new list("title5", "place5", "Memo5"));
+        imageButton = findViewById(R.id.todaybutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 이미지 버튼을 클릭했을 때 실행할 코드를 작성합니다.
 
-        mAdapter = new checklist(mDatas);
-        mPostRecyclerView.setAdapter(mAdapter);
-        mPostRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                // 다른 액티비티로 화면 이동하는 Intent를 생성합니다.
+                Intent intent = new Intent(getApplicationContext(), TodayCalendar.class);
+
+                // Intent를 사용하여 다른 액티비티로 화면 이동합니다.
+                startActivity(intent);
+            }
+        });
     }
 
 
