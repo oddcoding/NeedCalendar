@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+
     }
+
 
     private void initWidgets()
     {
@@ -99,4 +102,5 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
+
 }

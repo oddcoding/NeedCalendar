@@ -4,6 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../NeedCalendar/app/src/main/res/layout/activity_main.xml" value="0.23097826086956522" />
+        <entry key="app/src/main/res/drawable/switch_thumb.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/switch_thumb_selector.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/switch_track_off.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/switch_track_on.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/switch_track_selector.xml" value="0.1925" />
+        <entry key="app/src/main/res/layout/activity_event_edit.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27437591552734375" />
+        <entry key="app/src/main/res/layout/activity_week_view.xml" value="0.11618257261410789" />
+        <entry key="app/src/main/res/layout/calendar_cell.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/color.xml" value="0.2210144927536232" />
+        <entry key="app/src/main/res/layout/event_cell.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layout/menu.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layout/plant.xml" value="0.2359375" />
       </map>
     </option>
   </component>
