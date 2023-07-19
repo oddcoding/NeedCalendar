@@ -11,11 +11,11 @@
         <entry key="app/src/main/res/drawable/switch_track_selector.xml" value="0.1925" />
         <entry key="app/src/main/res/layout/activity_event_edit.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27437591552734375" />
-        <entry key="app/src/main/res/layout/activity_week_view.xml" value="0.11618257261410789" />
+        <entry key="app/src/main/res/layout/activity_week_view.xml" value="0.165" />
         <entry key="app/src/main/res/layout/calendar_cell.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/color.xml" value="0.2210144927536232" />
         <entry key="app/src/main/res/layout/event_cell.xml" value="0.2359375" />
-        <entry key="app/src/main/res/layout/menu.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layout/menu.xml" value="0.2479400299407624" />
         <entry key="app/src/main/res/layout/plant.xml" value="0.2359375" />
       </map>
     </option>
