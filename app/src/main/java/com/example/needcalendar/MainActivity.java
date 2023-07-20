@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
+    private ImageButton imageButton;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
@@ -30,6 +32,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+
+        imageButton = findViewById(R.id.weekbutton);
+        imageButton = findViewById(R.id.menuButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
+
+                startActivity(intent1);
+                startActivity(intent2);
+            }
+        });
 
     }
 
