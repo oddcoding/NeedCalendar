@@ -33,16 +33,16 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         selectedDate = LocalDate.now();
         setMonthView();
 
-        imageButton = findViewById(R.id.weekbutton);
+        //imageButton = findViewById(R.id.weekbutton);
         imageButton = findViewById(R.id.menuButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
+               //Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
                 Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
 
-                startActivity(intent1);
+                //startActivity(intent1);
                 startActivity(intent2);
             }
         });
