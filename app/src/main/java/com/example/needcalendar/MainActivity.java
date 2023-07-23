@@ -1,36 +1,33 @@
 package com.example.needcalendar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.GridLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
+        import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.annotation.SuppressLint;
-import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.ImageButton;
+        import android.widget.TextView;
+        import android.widget.Toast;
+        import android.annotation.SuppressLint;
+        import android.content.Context;
 
-import android.widget.Button;
+        import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+        import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+        import java.time.LocalDate;
+        import java.time.YearMonth;
+        import java.time.format.DateTimeFormatter;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
-
-
     private ImageButton imageButton;
-
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
@@ -59,6 +56,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 startActivity(intent);
             }
         });
+
+        imageButton = findViewById(R.id.menuButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
+
+                //startActivity(intent1);
+                startActivity(intent2);
+            }
+        });
+
     }
 
 

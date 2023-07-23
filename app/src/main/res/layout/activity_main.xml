@@ -200,14 +200,12 @@
             android:textColor="@color/blue"
             android:textAlignment="center"
             android:textSize="18sp"/>
-
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp">
+        android:layout_marginBottom="1dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/calendarRecyclerView"
