@@ -5,12 +5,16 @@ package com.example.needcalendar;
         import androidx.recyclerview.widget.RecyclerView;
         import androidx.recyclerview.widget.LinearLayoutManager;
 
+        import android.app.DatePickerDialog;
+        import android.app.TimePickerDialog;
         import android.content.Intent;
         import android.os.Bundle;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.DatePicker;
         import android.widget.ImageButton;
         import android.widget.TextView;
+        import android.widget.TimePicker;
         import android.widget.Toast;
         import android.annotation.SuppressLint;
         import android.content.Context;
@@ -23,10 +27,17 @@ package com.example.needcalendar;
         import java.time.YearMonth;
         import java.time.format.DateTimeFormatter;
         import java.util.ArrayList;
+        import java.util.Calendar;
         import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
+
+    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
+    DatePickerDialog datePickerDialog;
+    TimePickerDialog timePickerDialog;
+    TextView textView;
+
     private ImageButton imageButton;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
@@ -43,11 +54,18 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         selectedDate = LocalDate.now();
         setMonthView();
 
+
+        btn_end_date = findViewById(R.id.btn_end_date);
+        btn_end_time = findViewById(R.id.btn_end_time);
+        btn_start_date = findViewById(R.id.btn_start_date);
+        btn_start_time = findViewById(R.id.btn_start_time);
+        textView = findViewById(R.id.textView);
+
+
         imageButton = findViewById(R.id.todaybutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 이미지 버튼을 클릭했을 때 실행할 코드를 작성합니다.
 
                 // 다른 액티비티로 화면 이동하는 Intent를 생성합니다.
                 Intent intent = new Intent(getApplicationContext(), TodayCalendar.class);
@@ -70,8 +88,19 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
-    }
 
+        imageButton = findViewById(R.id.addbutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent3 = new Intent(getApplicationContext(), add_schedule.class);
+
+                startActivity(intent3);
+            }
+        });
+
+    }
 
     private void initWidgets()
     {
