@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     TextView textView;
 
     private ImageButton imageButton;
+
+
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
@@ -60,6 +62,21 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         btn_start_date = findViewById(R.id.btn_start_date);
         btn_start_time = findViewById(R.id.btn_start_time);
         textView = findViewById(R.id.textView);
+
+
+        imageButton = findViewById(R.id.weekbutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // 다른 액티비티로 화면 이동하는 Intent를 생성합니다.
+                Intent intent7 = new Intent(getApplicationContext(), WeekViewActivity.class);
+
+                // Intent를 사용하여 다른 액티비티로 화면 이동합니다.
+                startActivity(intent7);
+            }
+        });
+
 
 
         imageButton = findViewById(R.id.todaybutton);
@@ -99,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 startActivity(intent3);
             }
         });
+
 
     }
 

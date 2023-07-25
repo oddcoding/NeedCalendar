@@ -26,6 +26,14 @@
             android:name="com.example.needcalendar.MenuViewActivity"/>
         <activity
             android:name="com.example.needcalendar.add_schedule"/>
+        <activity
+            android:name="com.example.needcalendar.fortune_cookie"/>
+        <activity
+            android:name="com.example.needcalendar.login"/>
+        <activity
+            android:name="com.example.needcalendar.Screen"/>
+        <activity
+            android:name="com.example.needcalendar.WeekViewActivity"/>
 
     </application>
 
