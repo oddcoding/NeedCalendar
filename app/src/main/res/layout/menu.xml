@@ -191,8 +191,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="  동기부여모드"
+                android:layout_marginLeft="35dp"
+                android:text="동기부여모드"
                 android:textSize="20dp"
                 android:textColor="@color/gray"
                 android:textStyle="bold"/>

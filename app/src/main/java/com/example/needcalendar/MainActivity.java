@@ -33,17 +33,35 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         selectedDate = LocalDate.now();
         setMonthView();
 
-        //imageButton = findViewById(R.id.weekbutton);
+        imageButton = findViewById(R.id.weekbutton);
         imageButton = findViewById(R.id.menuButton);
+        imageButton = findViewById(R.id.addbutton);
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-               //Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
+
+                startActivity(intent1);
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
 
-                //startActivity(intent1);
                 startActivity(intent2);
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(getApplicationContext(), add_schedule.class);
+
+                startActivity(intent3);
             }
         });
 
