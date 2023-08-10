@@ -35,6 +35,10 @@
             android:name="com.example.needcalendar.add_schedule">
         </activity>
 
+        <activity
+            android:name="com.example.needcalendar.EventEditActivity">
+        </activity>
+
     </application>
 
 </manifest>
