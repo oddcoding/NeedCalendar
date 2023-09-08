@@ -16,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="280dp"
+       <TextView
+                android:id="@+id/textView1"
+                android:layout_width="210dp"
                 android:layout_height="30dp"
                 android:layout_margin="15dp"
                 android:text="6월"
@@ -34,6 +34,18 @@
                 android:text="back"
                 android:textColor="#000000"
                 android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF"
+                android:gravity="right"
+                android:text="okay"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
 
         </LinearLayout>
 

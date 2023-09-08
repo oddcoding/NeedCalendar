@@ -1,13 +1,14 @@
 package com.example.needcalendar;
 
-public class list {
+public class TodoItem {
 
     private int id;
     private String content;
     private String title;
     private String writeDate;
+    private  String memo;
 
-    public list(){
+    public TodoItem(){
 
     }
 
@@ -43,4 +44,8 @@ public class list {
     public void setWriteDate(String writeDate) {
         this.writeDate = writeDate;
     }
+
+    public String getMemo() {return memo;}
+
+    public void setMemo(String toString) {this.memo = memo;}
 }

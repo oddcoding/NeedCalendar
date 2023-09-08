@@ -3,59 +3,60 @@ package com.example.needcalendar;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.recyclerview.widget.GridLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
-        import androidx.recyclerview.widget.LinearLayoutManager;
 
         import android.app.DatePickerDialog;
+        import android.app.Dialog;
         import android.app.TimePickerDialog;
         import android.content.Intent;
         import android.os.Bundle;
         import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.DatePicker;
+        import android.widget.EditText;
         import android.widget.ImageButton;
         import android.widget.TextView;
-        import android.widget.TimePicker;
         import android.widget.Toast;
         import android.annotation.SuppressLint;
-        import android.content.Context;
 
         import android.widget.Button;
 
-        import com.google.android.material.bottomnavigation.BottomNavigationView;
+        import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+        import java.text.SimpleDateFormat;
         import java.time.LocalDate;
         import java.time.YearMonth;
         import java.time.format.DateTimeFormatter;
         import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.List;
+        import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
+    private RecyclerView mRv_todo;
+    private FloatingActionButton mBtn_write;
+    private ArrayList<TodoItem> mTodoItems;
+    private DBHelper mDBHelper;
+    
+    private ImageButton imageButton;
+    private TextView monthYearText;
+    private RecyclerView calendarRecyclerView;
+    private LocalDate selectedDate;
+
+    private RecyclerView rv_td;
+    private FloatingActionButton mbtn_write;
 
     Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     TextView textView;
 
-    private ImageButton imageButton;
-
-
-    private TextView monthYearText;
-    private RecyclerView calendarRecyclerView;
-    private LocalDate selectedDate;
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
-
 
         btn_end_date = findViewById(R.id.btn_end_date);
         btn_end_time = findViewById(R.id.btn_end_time);
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 startActivity(intent7);
             }
         });
-
 
 
         imageButton = findViewById(R.id.todaybutton);
@@ -105,18 +105,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
-
         imageButton = findViewById(R.id.addbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent3 = new Intent(getApplicationContext(), add_schedule.class);
 
                 startActivity(intent3);
             }
         });
-
 
     }
 
