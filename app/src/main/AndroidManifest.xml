@@ -44,6 +44,10 @@
             android:name="com.example.needcalendar.EventEditActivity">
         </activity>
 
+        <activity
+            android:name="com.example.needcalendar.login">
+        </activity>
+
     </application>
 
 </manifest>
