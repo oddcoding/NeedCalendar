@@ -13,11 +13,25 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Calendar;
+
 public class add_schedule extends AppCompatActivity {
 
-    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
+    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time, btn_repeat;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
+    MultiDatePickerDialog multiDatePickerDialog;
     TextView textView;
 
 
@@ -30,6 +44,7 @@ public class add_schedule extends AppCompatActivity {
         btn_end_time = findViewById(R.id.btn_end_time);
         btn_start_date = findViewById(R.id.btn_start_date);
         btn_start_time = findViewById(R.id.btn_start_time);
+        btn_repeat = findViewById(R.id.btn_repeat);
         textView = findViewById(R.id.textView);
 
     }
@@ -99,7 +114,34 @@ public class add_schedule extends AppCompatActivity {
             timePickerDialog.show();
         }
 
+        if (view == btn_repeat) {
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            multiDatePickerDialog = new  MultiDatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            btn_repeat.setText(year + " / " + (month + 1) + " / " + dayOfMonth);
+
+                        }
+                    }, mYear,mMonth,mDay);
+
+            multiDatePickerDialog.addOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                }
+            });
+
+            multiDatePickerDialog.show();
+        }
+
     }
-
-
 }
+
+
+
+

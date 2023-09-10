@@ -6,24 +6,49 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MyAppDatabase";
     private static final int DATABASE_VERSION = 1;
 
+    // 사용자 정보 테이블
     private static final String TABLE_USERS = "users";
-    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_PASSWORD = "password";
     private static final String COLUMN_NAME = "name";
 
+    // 일정 정보 테이블
+    private static final String TABLE_SCHEDULE = "schedules";
+    private static final String COLUMN_SCHEDULE_ID = "schedule_id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_START_DATE = "start_date";
+    private static final String COLUMN_START_TIME = "start_time";
+    private static final String COLUMN_END_DATE = "end_date";
+    private static final String COLUMN_END_TIME = "end_time";
+
     // 테이블 생성 SQL 문
-    private static final String TABLE_CREATE =
+    private static final String TABLE_USERS_CREATE =
             "CREATE TABLE " + TABLE_USERS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_EMAIL + " TEXT, " +
                     COLUMN_PASSWORD + " TEXT, " +
                     COLUMN_NAME + " TEXT);";
+
+    private static final String TABLE_SCHEDULE_CREATE =
+            "CREATE TABLE " + TABLE_SCHEDULE + " (" +
+                    COLUMN_SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_TITLE + " TEXT, " +
+                    COLUMN_START_DATE + " TEXT, " +
+                    COLUMN_START_TIME + " TEXT, " +
+                    COLUMN_END_DATE + " TEXT, " +
+                    COLUMN_END_TIME + " TEXT);";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,12 +56,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
+        db.execSQL(TABLE_USERS_CREATE);
+        db.execSQL(TABLE_SCHEDULE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE);
         onCreate(db);
     }
 
@@ -55,11 +82,52 @@ public class DBHelper extends SQLiteOpenHelper {
     // 이메일로 사용자 정보를 검색하는 메서드
     public Cursor getUserByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_NAME};
+        String[] columns = {COLUMN_USER_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_NAME};
         String selection = COLUMN_EMAIL + "=?";
         String[] selectionArgs = {email};
 
         return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
     }
+
+    public boolean isEmailTaken(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID};
+        String selection = COLUMN_EMAIL + "=?";
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        boolean isTaken = cursor.getCount() > 0;
+        cursor.close();
+        return isTaken;
+    }
+
+    // 이메일과 패스워드를 확인하는 메서드
+    public boolean checkUser(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID};
+        String selection = COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=?";
+        String[] selectionArgs = {email, password};
+
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        boolean isValidUser = cursor.getCount() > 0;
+        cursor.close();
+        return isValidUser;
+    }
+
+    // 일정 정보를 데이터베이스에 추가하는 메서드
+    public boolean addSchedule(String title, String startDate, String startTime, String endDate, String endTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, title);
+        values.put(COLUMN_START_DATE, startDate);
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_END_DATE, endDate);
+        values.put(COLUMN_END_TIME, endTime);
+
+        long result = db.insert(TABLE_SCHEDULE, null, values);
+        return result != -1;
+    }
+
+    // 일정 정보 조회 메서드 등 다른 일정 관련 메서드 추가 가능
 }
+
 

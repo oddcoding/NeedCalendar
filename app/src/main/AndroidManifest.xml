@@ -52,6 +52,7 @@
             android:name="com.example.needcalendar.RegisterActivity">
         </activity>
 
+
     </application>
 
 </manifest>
