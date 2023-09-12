@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +49,35 @@ public class add_schedule extends AppCompatActivity {
         btn_repeat = findViewById(R.id.btn_repeat);
         textView = findViewById(R.id.textView);
 
+        Button saveButton = findViewById(R.id.save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveScheduleToDatabase();
+            }
+        });
+
+    }
+
+    private void saveScheduleToDatabase() {
+        // 사용자로부터 입력된 일정 정보 가져오기
+        String title = ((EditText) findViewById(R.id.editText1)).getText().toString();
+        String startDate = btn_start_date.getText().toString();
+        String startTime = btn_start_time.getText().toString();
+        String endDate = btn_end_date.getText().toString();
+        String endTime = btn_end_time.getText().toString();
+
+        // 데이터베이스에 일정 추가
+        DBHelper dbHelper = new DBHelper(this);
+        boolean isInserted = dbHelper.addSchedule(title, startDate, startTime, endDate, endTime);
+
+        if (isInserted) {
+            // 일정 추가 성공
+            Toast.makeText(this, "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            // 일정 추가 실패
+            Toast.makeText(this, "일정 추가에 실패했습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onClick(View view) {

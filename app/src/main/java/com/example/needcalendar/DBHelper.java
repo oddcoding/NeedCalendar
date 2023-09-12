@@ -127,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    // 일정 정보 조회 메서드 등 다른 일정 관련 메서드 추가 가능
+
 }
 
 

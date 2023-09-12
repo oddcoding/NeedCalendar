@@ -53,18 +53,27 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         btn_start_time = findViewById(R.id.btn_start_time);
         textView = findViewById(R.id.textView);
 
+        imageButton = findViewById(R.id.monthbutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+
+                startActivity(intent1);
+            }
+        });
 
         imageButton = findViewById(R.id.weekbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent7 = new Intent(getApplicationContext(), WeekViewActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), WeekViewActivity.class);
 
-                startActivity(intent7);
+                startActivity(intent2);
             }
         });
-
 
 
         imageButton = findViewById(R.id.todaybutton);
@@ -72,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), TodayCalendar.class);
+                Intent intent3 = new Intent(getApplicationContext(), TodayCalendar.class);
 
-                startActivity(intent);
+                startActivity(intent3);
             }
         });
 
@@ -83,9 +92,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View view) {
 
-                Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
+                Intent intent4 = new Intent(getApplicationContext(), MenuViewActivity.class);
 
-                startActivity(intent2);
+                startActivity(intent4);
             }
         });
 
@@ -95,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View view) {
 
-                Intent intent3 = new Intent(getApplicationContext(), add_schedule.class);
+                Intent intent5 = new Intent(getApplicationContext(), add_schedule.class);
 
-                startActivity(intent3);
+                startActivity(intent5);
             }
         });
 

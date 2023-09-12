@@ -212,6 +212,7 @@
             android:text="  장소"
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
+
         <EditText
             android:id="@+id/editText3"
             android:layout_width="match_parent"
@@ -220,6 +221,18 @@
             android:text="  메모"
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/green"
+            android:text="저장하기"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+
 
     </LinearLayout>
 
