@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuViewActivity extends AppCompatActivity {
     private Button loginButton;
+    private Button logoutButton;
+    private LoginManager loginManager;
     private boolean isLoggedIn = false; // 로그인 상태를 나타내는 변수
     private static final int LOGIN_REQUEST_CODE = 1;
 
@@ -18,8 +20,12 @@ public class MenuViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
+        loginManager = new LoginManager(this);
+
         loginButton = findViewById(R.id.login);
-        updateLoginButtonState();
+        logoutButton = findViewById(R.id.logout);
+
+        updateButtonVisibility();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +50,8 @@ public class MenuViewActivity extends AppCompatActivity {
         // 예: 로그아웃 API 호출 또는 로그아웃 관련 작업 수행
 
         // 로그아웃 성공 시 로그인 상태를 변경하고 버튼 텍스트를 업데이트합니다.
-        isLoggedIn = false;
-        updateLoginButtonState();
+        loginManager.setLoggedIn(false);
+        updateButtonVisibility();
     }
 
     @Override
@@ -53,20 +59,18 @@ public class MenuViewActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LOGIN_REQUEST_CODE && resultCode == RESULT_OK) {
             // 로그인 화면에서 로그인이 성공적으로 이루어졌을 경우
-            isLoggedIn = true;
-            updateLoginButtonState();
+            loginManager.setLoggedIn(true);
+            updateButtonVisibility();
         }
     }
 
-    // 버튼 텍스트를 업데이트하는 메서드
-    private void updateLoginButtonState() {
-        if (isLoggedIn) {
-            loginButton.setText("로그아웃");
+    private void updateButtonVisibility() {
+        if (loginManager.isLoggedIn()) {
+            loginButton.setVisibility(View.GONE);
+            logoutButton.setVisibility(View.VISIBLE);
         } else {
-            loginButton.setText("로그인");
+            loginButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.GONE);
         }
     }
 }
-
-
-
