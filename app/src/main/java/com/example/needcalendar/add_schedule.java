@@ -1,40 +1,46 @@
 package com.example.needcalendar;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.app.assist.AssistStructure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 
 public class add_schedule extends AppCompatActivity {
 
-    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
+    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time, btn_repeat;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
+    MultiDatePickerDialog multiDatePickerDialog;
     TextView textView;
-    private DBHelper mDBHelper;
-    private RecyclerView mRv_todo;
 
-    private ArrayList<TodoItem> mTodoItems;
-    private CustomAdapter mAdapter;
+    private EditText editText1;
+    private EditText editText2;
+    private EditText editText3;
+    private Button okButton;
+    private DatabaseHelper dbHelper;
 
+    private RecyclerView recyclerView1; // 체크박스가 체크된 경우의 리사이클러뷰
+    private RecyclerView recyclerView2; // 체크박스가 해제된 경우의 리사이클러뷰
+    private checklist adapter1; // recyclerView1의 어댑터
+    private checklist adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,34 +51,64 @@ public class add_schedule extends AppCompatActivity {
         btn_end_time = findViewById(R.id.btn_end_time);
         btn_start_date = findViewById(R.id.btn_start_date);
         btn_start_time = findViewById(R.id.btn_start_time);
+        btn_repeat = findViewById(R.id.btn_repeat);
+        textView = findViewById(R.id.textView);
+
+        editText1 = findViewById(R.id.editText1);
+        editText2 = findViewById(R.id.editText2);
+        editText3 = findViewById(R.id.editText3);
+        okButton = findViewById(R.id.ok);
+
+        // 데이터베이스 도우미를 초기화합니다.
+        dbHelper = new DatabaseHelper(this);
 
 
-        setInit();
-    }
+        // OK 버튼에 클릭 리스너를 설정합니다.
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    private void setInit() {
-
-        mDBHelper = new DBHelper(this);
-
-        mRv_todo = findViewById(R.id.list_rv);
-        mTodoItems = new ArrayList<>();
-
-        //Button mBtn_write = findViewById(R.id.ok);
-
-        // load recent DB
-        //loadRecentDB();
+                // EditText에서 텍스트를 가져옵니다.
+                String title = editText1.getText().toString();
+                String place = editText2.getText().toString();
+                String memo = editText3.getText().toString();
 
 
-        }
+                long eventId = dbHelper.insertData(title, place, memo);
 
-    private void loadRecentDB() {
-        mTodoItems = mDBHelper.getTodoList();
-        if(mAdapter == null){
-            mAdapter = new CustomAdapter(mTodoItems, this);
-            mRv_todo.setHasFixedSize(true);
-            mRv_todo.setAdapter(mAdapter);
+                // 데이터베이스에 데이터를 추가합니다.
+                // 추가 결과를 확인하고 필요한 작업을 수행합니다.
+                if (eventId != -1) {
+                    // 데이터가 성공적으로 추가됨
+                    // 추가 후에 필요한 작업을 수행하세요
+                    Toast.makeText(add_schedule.this, "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
-        }
+                } else {
+                    // 데이터 추가 실패
+                    // 실패한 경우 필요한 작업을 수행하세요
+                    Toast.makeText(add_schedule.this, "일정 추가에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+
+
+//                editText1.setText("");
+//                editText2.setText("");
+//                editText3.setText("");
+
+                TextView titleTextView = findViewById(R.id.editText1);
+                TextView placeTextView = findViewById(R.id.editText2);
+                TextView memoTextView = findViewById(R.id.editText3);
+
+                title = editText1.getText().toString();
+                place = editText2.getText().toString();
+                memo = editText3.getText().toString();
+
+                titleTextView.setText(title);
+                placeTextView.setText(place);
+                memoTextView.setText(memo);
+
+            }
+
+        });
     }
 
     public void onClick(View view) {
@@ -138,32 +174,35 @@ public class add_schedule extends AppCompatActivity {
                     },mHour,mMinute, false);
             timePickerDialog.show();
         }
-            Button btn_ok= findViewById(R.id.ok);
-            btn_ok.setOnClickListener(new View.OnClickListener() {
+
+        if (view == btn_repeat) {
+            final Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            multiDatePickerDialog = new  MultiDatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            btn_repeat.setText(year + " / " + (month + 1) + " / " + dayOfMonth);
+
+                        }
+                    }, mYear,mMonth,mDay);
+
+            multiDatePickerDialog.addOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
                 @Override
-                public void onClick(View v) {
-                    EditText et_title = findViewById(R.id.editText1);
-                    EditText et_content = findViewById(R.id.editText2);
-                    EditText et_memo = findViewById(R.id.editText3);
-
-                    mDBHelper.InsertTodo(et_title.getText().toString(), et_content.getText().toString(), et_memo.getText().toString());
-                    //insert UI
-                    TodoItem item = new TodoItem();
-                    item.setTitle(et_title.getText().toString());
-                    item.setContent(et_content.getText().toString());
-                    item.setWriteDate(et_memo.getText().toString());
-                    mAdapter.addItem(item);
-
-                    et_title.setText("");
-                    et_content.setText("");
-                    et_memo.setText("");
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 }
             });
 
-
-
-
+            multiDatePickerDialog.show();
+        }
 
     }
 }
+
+
+
+

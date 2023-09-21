@@ -16,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-       <TextView
-                android:id="@+id/textView1"
-                android:layout_width="210dp"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_margin="15dp"
                 android:text="6월"
@@ -26,7 +26,7 @@
 
             <Button
                 android:id="@+id/back"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:background="#FFFFFF"
@@ -37,15 +37,14 @@
 
             <Button
                 android:id="@+id/ok"
-                android:layout_width="50dp"
+                android:layout_width="35dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:background="#FFFFFF"
                 android:gravity="right"
-                android:text="okay"
+                android:text="ok"
                 android:textColor="#000000"
                 android:textSize="15dp" />
-
 
         </LinearLayout>
 
@@ -189,10 +188,10 @@
             android:id="@+id/blank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            />
+            android:background="#FFFFFF" />
+
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btn_repeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#EEEEEE"
@@ -232,6 +231,8 @@
             android:text="  메모"
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
+
+
 
     </LinearLayout>
 

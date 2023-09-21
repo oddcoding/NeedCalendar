@@ -9,41 +9,64 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuViewActivity extends AppCompatActivity {
-    private Button button;
+    private Button loginButton;
+    private boolean isLoggedIn = false; // 로그인 상태를 나타내는 변수
+    private static final int LOGIN_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
-        button = findViewById(R.id.cookie);
-        button.setOnClickListener(new View.OnClickListener() {
+        loginButton = findViewById(R.id.login);
+        updateLoginButtonState();
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent4 = new Intent(getApplicationContext(), fortune_cookie.class);
-                startActivity(intent4);
+                if (isLoggedIn) {
+                    // 이미 로그인되어 있을 경우
+                    // 로그아웃 로직을 수행하거나 원하는 작업을 수행합니다.
+                    // 여기에서는 로그아웃 로직을 가정합니다.
+                    performLogout();
+                } else {
+                    // 로그인 화면으로 전환
+                    Intent loginIntent = new Intent(MenuViewActivity.this, login.class);
+                    startActivityForResult(loginIntent, LOGIN_REQUEST_CODE);
+                }
             }
         });
+    }
 
-        button = findViewById(R.id.login);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent5 = new Intent(getApplicationContext(), login.class);
-                startActivity(intent5);
-            }
-        });
+    // 로그아웃 로직을 구현할 수 있습니다.
+    private void performLogout() {
+        // 로그아웃 작업을 수행합니다.
+        // 예: 로그아웃 API 호출 또는 로그아웃 관련 작업 수행
 
+        // 로그아웃 성공 시 로그인 상태를 변경하고 버튼 텍스트를 업데이트합니다.
+        isLoggedIn = false;
+        updateLoginButtonState();
+    }
 
-        button = findViewById(R.id.setting);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent6 = new Intent(getApplicationContext(), Screen.class);
-                startActivity(intent6);
-            }
-        });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN_REQUEST_CODE && resultCode == RESULT_OK) {
+            // 로그인 화면에서 로그인이 성공적으로 이루어졌을 경우
+            isLoggedIn = true;
+            updateLoginButtonState();
+        }
+    }
 
-
+    // 버튼 텍스트를 업데이트하는 메서드
+    private void updateLoginButtonState() {
+        if (isLoggedIn) {
+            loginButton.setText("로그아웃");
+        } else {
+            loginButton.setText("로그인");
+        }
     }
 }
+
+
+

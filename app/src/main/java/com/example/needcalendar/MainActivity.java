@@ -1,62 +1,56 @@
 package com.example.needcalendar;
 
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.recyclerview.widget.GridLayoutManager;
-        import androidx.recyclerview.widget.RecyclerView;
+import static com.example.needcalendar.CalendarUtils.daysInMonthArray;
+import static com.example.needcalendar.CalendarUtils.monthYearFromDate;
 
-        import android.app.DatePickerDialog;
-        import android.app.Dialog;
-        import android.app.TimePickerDialog;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.ImageButton;
-        import android.widget.TextView;
-        import android.widget.Toast;
-        import android.annotation.SuppressLint;
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-        import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-        import java.text.SimpleDateFormat;
-        import java.time.LocalDate;
-        import java.time.YearMonth;
-        import java.time.format.DateTimeFormatter;
-        import java.util.ArrayList;
-        import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
-    private RecyclerView mRv_todo;
-    private FloatingActionButton mBtn_write;
-    private ArrayList<TodoItem> mTodoItems;
-    private DBHelper mDBHelper;
-    
-    private ImageButton imageButton;
-    private TextView monthYearText;
-    private RecyclerView calendarRecyclerView;
-    private LocalDate selectedDate;
-
-    private RecyclerView rv_td;
-    private FloatingActionButton mbtn_write;
 
     Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
     DatePickerDialog datePickerDialog;
     TimePickerDialog timePickerDialog;
     TextView textView;
 
+    private ImageButton imageButton;
+
+
+    private TextView monthYearText;
+    private RecyclerView calendarRecyclerView;
+    private LocalDate selectedDate;
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         initWidgets();
-        selectedDate = LocalDate.now();
+        CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
+
+
+
+
 
         btn_end_date = findViewById(R.id.btn_end_date);
         btn_end_time = findViewById(R.id.btn_end_time);
@@ -70,13 +64,12 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View v) {
 
-                // 다른 액티비티로 화면 이동하는 Intent를 생성합니다.
                 Intent intent7 = new Intent(getApplicationContext(), WeekViewActivity.class);
 
-                // Intent를 사용하여 다른 액티비티로 화면 이동합니다.
                 startActivity(intent7);
             }
         });
+
 
 
         imageButton = findViewById(R.id.todaybutton);
@@ -84,10 +77,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View v) {
 
-                // 다른 액티비티로 화면 이동하는 Intent를 생성합니다.
                 Intent intent = new Intent(getApplicationContext(), TodayCalendar.class);
 
-                // Intent를 사용하여 다른 액티비티로 화면 이동합니다.
                 startActivity(intent);
             }
         });
@@ -97,18 +88,18 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View view) {
 
-                //Intent intent1 = new Intent(getApplicationContext(), WeekViewActivity.class);
                 Intent intent2 = new Intent(getApplicationContext(), MenuViewActivity.class);
 
-                //startActivity(intent1);
                 startActivity(intent2);
             }
         });
+
 
         imageButton = findViewById(R.id.addbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent3 = new Intent(getApplicationContext(), add_schedule.class);
 
                 startActivity(intent3);
@@ -125,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     private void setMonthView()
     {
-        monthYearText.setText(monthYearFromDate(selectedDate));
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+        monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
+        ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
@@ -134,55 +125,34 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
-    private ArrayList<String> daysInMonthArray(LocalDate date)
-    {
-        ArrayList<String> daysInMonthArray = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(date);
 
-        int daysInMonth = yearMonth.lengthOfMonth();
-
-        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-
-        for(int i = 1; i <= 42; i++)
-        {
-            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek)
-            {
-                daysInMonthArray.add("");
-            }
-            else
-            {
-                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
-            }
-        }
-        return  daysInMonthArray;
-    }
-
-    private String monthYearFromDate(LocalDate date)
-    {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-        return date.format(formatter);
-    }
 
     public void previousMonthAction(View view)
     {
-        selectedDate = selectedDate.minusMonths(1);
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
         setMonthView();
     }
 
     public void nextMonthAction(View view)
     {
-        selectedDate = selectedDate.plusMonths(1);
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
         setMonthView();
     }
 
     @Override
-    public void onItemClick(int position, String dayText)
+    public void onItemClick(int position, LocalDate date)
     {
-        if(!dayText.equals(""))
+        if(date != null)
         {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            CalendarUtils.selectedDate = date;
+            setMonthView();
         }
     }
+
+    public void weeklyAction(View view)
+    {
+        startActivity(new Intent(this, WeekViewActivity.class));
+    }
+
+
 }

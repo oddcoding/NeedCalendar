@@ -8,9 +8,6 @@ public class TodoItem {
     private String writeDate;
     private  String memo;
 
-    public TodoItem(){
-
-    }
 
 
     public int getId() {

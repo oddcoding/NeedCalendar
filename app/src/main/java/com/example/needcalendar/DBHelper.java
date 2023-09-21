@@ -1,91 +1,128 @@
 package com.example.needcalendar;
 
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.Nullable;
-import java.util.ArrayList;
-
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 1;
-    private static final String DB_NAME = "NeedCalendar.db";
+    private static final String DATABASE_NAME = "MyAppDatabase";
+    private static final int DATABASE_VERSION = 1;
 
-    public DBHelper(@Nullable Context context) {
+    // 사용자 정보 테이블
+    private static final String TABLE_USERS = "users";
+    private static final String COLUMN_USER_ID = "user_id";
+    private static final String COLUMN_EMAIL = "email";
+    private static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_NAME = "name";
 
-        super(context, DB_NAME,null, DB_VERSION);
+    // 일정 정보 테이블
+    private static final String TABLE_SCHEDULE = "schedules";
+    private static final String COLUMN_SCHEDULE_ID = "schedule_id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_START_DATE = "start_date";
+    private static final String COLUMN_START_TIME = "start_time";
+    private static final String COLUMN_END_DATE = "end_date";
+    private static final String COLUMN_END_TIME = "end_time";
+
+    // 테이블 생성 SQL 문
+    private static final String TABLE_USERS_CREATE =
+            "CREATE TABLE " + TABLE_USERS + " (" +
+                    COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_EMAIL + " TEXT, " +
+                    COLUMN_PASSWORD + " TEXT, " +
+                    COLUMN_NAME + " TEXT);";
+
+    private static final String TABLE_SCHEDULE_CREATE =
+            "CREATE TABLE " + TABLE_SCHEDULE + " (" +
+                    COLUMN_SCHEDULE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_TITLE + " TEXT, " +
+                    COLUMN_START_DATE + " TEXT, " +
+                    COLUMN_START_TIME + " TEXT, " +
+                    COLUMN_END_DATE + " TEXT, " +
+                    COLUMN_END_TIME + " TEXT);";
+
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //데이터베이스가 생성 될 때 호출
-        //epdlxjqpdltm -> 테이블 -> 컬럼 -> 값
-        db.execSQL("CREATE TABLE IF NOT EXISTS TodoList (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL, content TEXT NOT NULL,  writeDate TEXT not NULL)");
+        db.execSQL(TABLE_USERS_CREATE);
+        db.execSQL(TABLE_SCHEDULE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHEDULE);
         onCreate(db);
     }
 
-    //select 문 (할일 목록들을 조회)
-    public ArrayList<TodoItem> getTodoList() {
-        ArrayList<TodoItem> todoItems = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
+    // 사용자 정보를 데이터베이스에 추가하는 메서드
+    public boolean addUser(String email, String password, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_EMAIL, email);
+        values.put(COLUMN_PASSWORD, password);
+        values.put(COLUMN_NAME, name);
 
-        Cursor cursor = db.rawQuery("SELECT * FROM TodoList ORDER BY writeDate DESC", null);
+        long result = db.insert(TABLE_USERS, null, values);
+        return result != -1;
+    }
 
-        if (cursor.getCount() != 0) {
-            //조회온 데이터가 있을때 내부 수행
-            int idIndex = cursor.getColumnIndex("id");
-            int titleIndex = cursor.getColumnIndex("title");
-            int contentIndex = cursor.getColumnIndex("content");
-            int writeDateIndex = cursor.getColumnIndex("writeDate");
+    // 이메일로 사용자 정보를 검색하는 메서드
+    public Cursor getUserByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_NAME};
+        String selection = COLUMN_EMAIL + "=?";
+        String[] selectionArgs = {email};
 
-            while (cursor.moveToNext()) {
+        return db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+    }
 
-                int id = cursor.getInt(idIndex);
-                String title = cursor.getString(titleIndex);
-                String content = cursor.getString(contentIndex);
-                String writeDate = cursor.getString(writeDateIndex);
-
-//                    int id = cursor.getInt(cursor.getColumnIndex("id"));
-//                    String title = cursor.getString(cursor.getColumnIndex("title"));
-//                    String content = cursor.getString(cursor.getColumnIndex("content"));
-//                    String writeDate = cursor.getString(cursor.getColumnIndex("writeDate"));
-
-                TodoItem todoItem = new TodoItem();
-                todoItem.setId(id);
-                todoItem.setTitle(title);
-                todoItem.setTitle(content);
-                todoItem.setTitle(writeDate);
-
-            }
-        }
+    public boolean isEmailTaken(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID};
+        String selection = COLUMN_EMAIL + "=?";
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        boolean isTaken = cursor.getCount() > 0;
         cursor.close();
-        return todoItems;
+        return isTaken;
     }
 
-    //insert문
-    public void InsertTodo(String _title, String _content, String _writeDate){
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO TodoList (title, content, writeDate) VALUES('" + _title +  "','" + _content + "' , '" + _writeDate + "');");
+    // 이메일과 패스워드를 확인하는 메서드
+    public boolean checkUser(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID};
+        String selection = COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=?";
+        String[] selectionArgs = {email, password};
 
-    }
-    //UPDATE문
-    public void UpdateTodo(String _title, String _content, String _writeDate, String _beforeDate){
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE TodoList SET title ='" + _title + "',content ='" + _content + "' , writeDate ='" + _writeDate + "' WHERE writeDate='" + _beforeDate + "'");
-    }
-
-    //DELETE문(할일 목록을 제거 한다.)
-    public void deleteTodo(String _beforeDate){
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM TodoList WHERE writeDate = '" + _beforeDate + "'");
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        boolean isValidUser = cursor.getCount() > 0;
+        cursor.close();
+        return isValidUser;
     }
 
+    // 일정 정보를 데이터베이스에 추가하는 메서드
+    public boolean addSchedule(String title, String startDate, String startTime, String endDate, String endTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, title);
+        values.put(COLUMN_START_DATE, startDate);
+        values.put(COLUMN_START_TIME, startTime);
+        values.put(COLUMN_END_DATE, endDate);
+        values.put(COLUMN_END_TIME, endTime);
+
+
+        long result = db.insert(TABLE_SCHEDULE, null, values);
+        return result != -1;
+    }
+
+    // 일정 정보 조회 메서드 등 다른 일정 관련 메서드 추가 가능
 }
+
+
