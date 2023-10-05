@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -71,9 +72,20 @@ public class add_schedule extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(this);
         boolean isInserted = dbHelper.addSchedule(title, startDate, startTime, endDate, endTime);
 
+        // 일정 제목이 공백인지 확인
+        if (title.trim().isEmpty()) {
+            // 일정 제목이 공백인 경우, 토스트 메시지 표시
+            Toast.makeText(this, "일정 제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return; // 일정 추가를 중단하고 메소드를 종료
+        }
+
         if (isInserted) {
             // 일정 추가 성공
             Toast.makeText(this, "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         } else {
             // 일정 추가 실패
             Toast.makeText(this, "일정 추가에 실패했습니다.", Toast.LENGTH_SHORT).show();

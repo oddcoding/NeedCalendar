@@ -10,67 +10,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuViewActivity extends AppCompatActivity {
     private Button loginButton;
-    private Button logoutButton;
     private LoginManager loginManager;
-    private boolean isLoggedIn = false; // 로그인 상태를 나타내는 변수
+    private boolean isLoggedIn = false;
     private static final int LOGIN_REQUEST_CODE = 1;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
+        protected void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.menu);
 
-        loginManager = new LoginManager(this);
+            loginManager = new LoginManager(this);
 
-        loginButton = findViewById(R.id.login);
-        logoutButton = findViewById(R.id.logout);
+            loginButton = findViewById(R.id.login);
 
-        updateButtonVisibility();
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isLoggedIn) {
-                    // 이미 로그인되어 있을 경우
-                    // 로그아웃 로직을 수행하거나 원하는 작업을 수행합니다.
-                    // 여기에서는 로그아웃 로직을 가정합니다.
-                    performLogout();
-                } else {
-                    // 로그인 화면으로 전환
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 로그인 버튼 클릭 시 로그인 화면으로 이동
                     Intent loginIntent = new Intent(MenuViewActivity.this, login.class);
-                    startActivityForResult(loginIntent, LOGIN_REQUEST_CODE);
+                    startActivity(loginIntent);
                 }
-            }
-        });
-    }
-
-    // 로그아웃 로직을 구현할 수 있습니다.
-    private void performLogout() {
-        // 로그아웃 작업을 수행합니다.
-        // 예: 로그아웃 API 호출 또는 로그아웃 관련 작업 수행
-
-        // 로그아웃 성공 시 로그인 상태를 변경하고 버튼 텍스트를 업데이트합니다.
-        loginManager.setLoggedIn(false);
-        updateButtonVisibility();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LOGIN_REQUEST_CODE && resultCode == RESULT_OK) {
-            // 로그인 화면에서 로그인이 성공적으로 이루어졌을 경우
-            loginManager.setLoggedIn(true);
-            updateButtonVisibility();
+            });
         }
-    }
-
-    private void updateButtonVisibility() {
-        if (loginManager.isLoggedIn()) {
-            loginButton.setVisibility(View.GONE);
-            logoutButton.setVisibility(View.VISIBLE);
-        } else {
-            loginButton.setVisibility(View.VISIBLE);
-            logoutButton.setVisibility(View.GONE);
-        }
-    }
 }

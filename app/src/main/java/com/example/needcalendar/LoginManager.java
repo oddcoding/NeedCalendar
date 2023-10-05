@@ -8,7 +8,7 @@ public class LoginManager {
 
     private SharedPreferences sharedPreferences;
     private static final String PREF_NAME = "MyAppPrefs"; // SharedPreferences 이름
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn"; // 로그인 상태를 저장하고 검색할 키
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     public LoginManager(Context context) {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

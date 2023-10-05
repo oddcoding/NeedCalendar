@@ -7,11 +7,13 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -23,10 +25,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener
 {
 
-    Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time;
-    DatePickerDialog datePickerDialog;
-    TimePickerDialog timePickerDialog;
-    TextView textView;
 
     private ImageButton imageButton;
 
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,13 +43,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         CalendarUtils.selectedDate = LocalDate.now();
         setMonthView();
 
-
-        btn_end_date = findViewById(R.id.btn_end_date);
-        btn_end_time = findViewById(R.id.btn_end_time);
-        btn_start_date = findViewById(R.id.btn_start_date);
-        btn_start_time = findViewById(R.id.btn_start_time);
-        textView = findViewById(R.id.textView);
-
+        // 월별 화면 연결
         imageButton = findViewById(R.id.monthbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,18 +55,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
+        // 주별 화면 연결 -> 일정 리스트로 수정 부탁.
         imageButton = findViewById(R.id.weekbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent2 = new Intent(getApplicationContext(), WeekViewActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), list_schedule.class);
 
                 startActivity(intent2);
             }
         });
 
 
+        // 일별 화면 연결 -> 체크리스트로 수정 부탁.
         imageButton = findViewById(R.id.todaybutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
+        // 메뉴 화면 연결
         imageButton = findViewById(R.id.menuButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
-
+        // 일정추가 화면 연결
         imageButton = findViewById(R.id.addbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,31 +113,36 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthYearText = findViewById(R.id.monthYearTV);
     }
 
-    private void setMonthView()
-    {
+    // 다른 클래스 연결해서 월별화면 보여주는 메소드.
+    private void setMonthView() {
         monthYearText.setText(monthYearFromDate(CalendarUtils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray(CalendarUtils.selectedDate);
+
+        DBHelper dbHelper = new DBHelper(this); // 또는 해당 컨텍스트에 맞게 인스턴스화
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+
     }
 
 
-
+    // 이전 달 출력.
     public void previousMonthAction(View view)
     {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusMonths(1);
         setMonthView();
     }
 
+    // 다음 달 출력.
     public void nextMonthAction(View view)
     {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusMonths(1);
         setMonthView();
     }
 
+    // 날짜 클릭시 해당 날 선택.
     @Override
     public void onItemClick(int position, LocalDate date)
     {
@@ -152,10 +151,5 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             CalendarUtils.selectedDate = date;
             setMonthView();
         }
-    }
-
-    public void weeklyAction(View view)
-    {
-        startActivity(new Intent(this, WeekViewActivity.class));
     }
 }
