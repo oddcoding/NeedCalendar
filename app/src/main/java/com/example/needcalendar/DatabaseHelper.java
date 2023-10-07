@@ -1,7 +1,5 @@
 package com.example.needcalendar;
 
-import static java.util.Calendar.getInstance;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

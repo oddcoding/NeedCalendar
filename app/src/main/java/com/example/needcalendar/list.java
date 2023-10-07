@@ -38,6 +38,5 @@ public class list {
         this.memo = memo;
     }
 
-    public void setIsCheckBoxItem(boolean b) {
-    }
+
 }

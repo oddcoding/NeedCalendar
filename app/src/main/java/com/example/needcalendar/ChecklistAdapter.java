@@ -1,7 +1,5 @@
 package com.example.needcalendar;
 
-import static android.media.CamcorderProfile.get;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,7 +35,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChecklistAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListItem currentItem = checklistItems.get(position);
         holder.titleTextView.setText(currentItem.getTitle());
         holder.placeTextView.setText(currentItem.getPlace());

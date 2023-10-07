@@ -18,7 +18,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-            />
+                />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,10 +36,12 @@
             android:name="com.example.needcalendar.WeekViewActivity"/>
         <activity
             android:name=".EventEditActivity"/>
-
         <activity
             android:name="com.example.needcalendar.TodayCalendar"/>
-
+        <activity
+            android:name="com.example.needcalendar.RegisterActivity"/>
+        <activity
+            android:name="com.example.needcalendar.list_schedule"/>
     </application>
 
 </manifest>

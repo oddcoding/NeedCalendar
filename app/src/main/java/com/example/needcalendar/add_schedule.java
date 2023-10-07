@@ -2,26 +2,20 @@ package com.example.needcalendar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.app.assist.AssistStructure;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class add_schedule extends AppCompatActivity {
 
@@ -82,6 +76,8 @@ public class add_schedule extends AppCompatActivity {
                     // 데이터가 성공적으로 추가됨
                     // 추가 후에 필요한 작업을 수행하세요
                     Toast.makeText(add_schedule.this, "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(add_schedule.this, MainActivity.class);
+                    startActivity(intent); // 메인 화면으로 이동
 
                 } else {
                     // 데이터 추가 실패

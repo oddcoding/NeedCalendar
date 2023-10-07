@@ -26,7 +26,7 @@
 
             <Button
                 android:id="@+id/back"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:background="#FFFFFF"
@@ -35,16 +35,6 @@
                 android:textColor="#000000"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/ok"
-                android:layout_width="35dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="#FFFFFF"
-                android:gravity="right"
-                android:text="ok"
-                android:textColor="#000000"
-                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -232,7 +222,16 @@
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
 
-
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/green"
+            android:text="저장하기"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
 
     </LinearLayout>
 

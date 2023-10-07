@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CalendarUtils {
     public static LocalDate selectedDate;
@@ -24,10 +25,12 @@ public class CalendarUtils {
 
     public static String monthYearFromDate(LocalDate date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        // 년, 월 한국식으로 변경.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월", new Locale("ko", "KR"));
         return date.format(formatter);
     }
 
+    // 월별 화면 메소드
     public static ArrayList<LocalDate> daysInMonthArray(LocalDate date)
     {
         ArrayList<LocalDate> daysInMonthArray = new ArrayList<>();
@@ -62,6 +65,7 @@ public class CalendarUtils {
         return days;
     }
 
+    // 일요일을 기점으로 한 주가 시작되는 코드
     private static LocalDate sundayForDate(LocalDate current)
     {
         LocalDate oneWeekAgo = current.minusWeeks(1);
@@ -76,4 +80,7 @@ public class CalendarUtils {
 
         return null;
     }
+
+
+
 }

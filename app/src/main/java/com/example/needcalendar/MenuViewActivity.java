@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuViewActivity extends AppCompatActivity {
     private Button loginButton;
+    private Button fortuneButton;
+
     private boolean isLoggedIn = false; // 로그인 상태를 나타내는 변수
     private static final int LOGIN_REQUEST_CODE = 1;
 
@@ -20,7 +22,6 @@ public class MenuViewActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.login);
         updateLoginButtonState();
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,8 +36,21 @@ public class MenuViewActivity extends AppCompatActivity {
                     startActivityForResult(loginIntent, LOGIN_REQUEST_CODE);
                 }
             }
+
         });
+
+        fortuneButton = findViewById(R.id.cookie);
+        fortuneButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+
+                Intent intent10 = new Intent(getApplicationContext(), fortune_cookie.class);
+                startActivity(intent10);
+
+            }
+        });
+
     }
+
 
     // 로그아웃 로직을 구현할 수 있습니다.
     private void performLogout() {

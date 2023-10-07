@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:textSize="20sp"
-            android:text="CRUSH THE COOKIE" />
+            android:text="CRUSH THE COOKIE"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView"
@@ -60,7 +60,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:text=""
-            android:textSize="13sp"/>
+            android:textSize="18sp" />
 
 
     </LinearLayout>
