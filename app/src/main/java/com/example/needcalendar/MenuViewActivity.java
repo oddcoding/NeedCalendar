@@ -12,6 +12,8 @@ public class MenuViewActivity extends AppCompatActivity {
     private Button loginButton;
     private Button fortuneButton;
 
+
+
     private boolean isLoggedIn = false; // 로그인 상태를 나타내는 변수
     private static final int LOGIN_REQUEST_CODE = 1;
 
