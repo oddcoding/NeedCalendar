@@ -1,8 +1,11 @@
 package com.example.needcalendar;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,59 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 public class add_schedule extends AppCompatActivity {
-    public void AmbilWarnaDialog(AmbilWarnaDialog.ColorPicker colorPicker, int tColor, AmbilWarnaDialog.OnAmbilWarnaListener onAmbilWarnaListener) {
-
-    }
-    public interface OnAmbilWarnaListener {
-        void onCancel(AmbilWarnaDialog dialog);
-
-        void onOk(AmbilWarnaDialog dialog, int color);
-    }
-    public class ColorPicker extends AppCompatActivity {
-        private final String TAG=this.getClass().getSimpleName();
-        private int tColor; // 직전 선택한 색상
-        private Button btnColorPicker;
-
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.add_schedule);
-
-
-            btnColorPicker = (Button)findViewById(R.id.btn_color);
-            btnColorPicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { Log.e(TAG,"choice() onClick");
-                    openColorPicker();
-                }
-            });
-
-
-        }
-
-
-        private void openColorPicker() {
-            AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, tColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-                @Override
-                public void onCancel(AmbilWarnaDialog dialog) {
-                }
-
-                @Override
-                public void onOk(AmbilWarnaDialog dialog, int color) {
-
-                    tColor = color; // 직전 선택한 색상
-
-                    // int to String
-                    String hexColor = Integer.toHexString(color).substring(2);
-
-                    // 투명도 조절
-                    hexColor = "#6F"+hexColor;
-                    Log.e(TAG,"hexColor:"+hexColor); }
-            })
-                    ;}}
-
 
     Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time, btn_repeat;
     DatePickerDialog datePickerDialog;
@@ -85,10 +38,14 @@ public class add_schedule extends AppCompatActivity {
     private Button okButton;
     private DatabaseHelper dbHelper;
     private Button btn_help;
+    private  Button btnColorPicker;
     private RecyclerView recyclerView1; // 체크박스가 체크된 경우의 리사이클러뷰
     private RecyclerView recyclerView2; // 체크박스가 해제된 경우의 리사이클러뷰
     private checklist adapter1; // recyclerView1의 어댑터
     private checklist adapter2;
+
+    private int tColor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +79,15 @@ public class add_schedule extends AppCompatActivity {
                 d.show();
             }
         });
+        btnColorPicker = (Button)findViewById(R.id.btn_color);
+        btnColorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { Log.e(TAG,"choice() onClick");
+                openColorPicker();
+            }
+        });
+
+
 
         // OK 버튼에 클릭 리스너를 설정합니다.
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +138,33 @@ public class add_schedule extends AppCompatActivity {
 
         });
     }
+
+    private void openColorPicker() {
+
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, tColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+
+                tColor = color; // 직전 선택한 색상
+
+                // int to String
+                String hexColor = Integer.toHexString(color).substring(2);
+
+                // 투명도 조절
+                hexColor = "#6F" + hexColor;
+                Log.e(TAG,"hexColor:" + hexColor);
+                btnColorPicker.setBackgroundColor(Color.parseColor(hexColor));
+            }
+        });
+        colorPicker.show();
+    }
+
+
+
 
     public void onClick(View view) {
 
