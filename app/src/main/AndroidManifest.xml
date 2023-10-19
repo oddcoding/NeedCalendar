@@ -32,9 +32,6 @@
             android:name="com.example.needcalendar.login"/>
         <activity
             android:name="com.example.needcalendar.Screen"/>
-
-        <activity
-            android:name=".EventEditActivity"/>
         <activity
             android:name="com.example.needcalendar.TodayCalendar"/>
         <activity

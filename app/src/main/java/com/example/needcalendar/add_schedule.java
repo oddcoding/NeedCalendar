@@ -27,8 +27,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 public class add_schedule extends AppCompatActivity {
 
     Button btn_start_date, btn_start_time ,btn_end_date, btn_end_time, btn_repeat;
-    DatePickerDialog datePickerDialog;
-    TimePickerDialog timePickerDialog;
     MultiDatePickerDialog multiDatePickerDialog;
     TextView textView;
 
@@ -39,10 +37,6 @@ public class add_schedule extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private Button btn_help;
     private  Button btnColorPicker;
-    private RecyclerView recyclerView1; // 체크박스가 체크된 경우의 리사이클러뷰
-    private RecyclerView recyclerView2; // 체크박스가 해제된 경우의 리사이클러뷰
-    private checklist adapter1; // recyclerView1의 어댑터
-    private checklist adapter2;
 
     private int tColor;
 
@@ -118,9 +112,6 @@ public class add_schedule extends AppCompatActivity {
                 }
 
 
-//                editText1.setText("");
-//                editText2.setText("");
-//                editText3.setText("");
 
                 TextView titleTextView = findViewById(R.id.editText1);
                 TextView placeTextView = findViewById(R.id.editText2);
