@@ -21,19 +21,10 @@
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_margin="15dp"
-                android:text="6월"
+                android:text="일정"
                 android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/back"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:background="#FFFFFF"
-                android:gravity="right"
-                android:text="back"
-                android:textColor="#000000"
-                android:textSize="15dp" />
+
 
 
         </LinearLayout>
@@ -41,7 +32,7 @@
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:background="#EEEEEE"
             android:hint="  일정 제목"
             android:privateImeOptions="defaultInputmode=korean"
@@ -57,14 +48,6 @@
             android:textColor="#000000"
             android:gravity="center_vertical" />
 
-        <Button
-            android:id="@+id/btn_set"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:text="  세부 설정"
-            android:textColor="#000000"
-            android:gravity="center_vertical" />
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -123,7 +106,7 @@
             <Button
                 android:id="@+id/btn_start"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text="  시작"
                 android:layout_weight="1"
@@ -135,7 +118,7 @@
             <Button
                 android:id="@+id/btn_start_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text=" 날짜 "
                 android:layout_weight="1"
@@ -146,7 +129,7 @@
             <Button
                 android:id="@+id/btn_start_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text=" 시간 "
                 android:layout_weight="1"
@@ -165,7 +148,7 @@
             <Button
                 android:id="@+id/btn_end"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text="  종료"
                 android:layout_weight="1"
@@ -177,7 +160,7 @@
             <Button
                 android:id="@+id/btn_end_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text=" 날짜 "
                 android:layout_weight="1"
@@ -188,7 +171,7 @@
             <Button
                 android:id="@+id/btn_end_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:background="#EEEEEE"
                 android:text=" 시간 "
                 android:layout_weight="1"
@@ -198,36 +181,14 @@
                 />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/blank"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF" />
 
-        <Button
-            android:id="@+id/btn_repeat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#EEEEEE"
-            android:text="  반복"
-            android:textColor="#000000"
-            android:gravity="center_vertical" />
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#EEEEEE"
-            android:text="  알림"
-            android:textColor="#000000"
-            android:gravity="center_vertical" />
 
-        <Button
-            android:id="@+id/blank2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            />
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+             />
 
         <EditText
             android:id="@+id/editText2"
@@ -245,6 +206,16 @@
             android:text="  메모"
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
+
+        <CheckBox
+            android:id="@+id/myCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="체크리스트 고정"
+            android:checked="false"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+        />
 
         <Button
             android:id="@+id/ok"

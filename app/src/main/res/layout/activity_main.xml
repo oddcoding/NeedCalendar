@@ -16,6 +16,21 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp">
 
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/needseed" />
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="NEED CALENDAR"
+            android:textSize="20dp"
+            android:textColor="@color/green"
+            android:background="#00ff0000"
+            />
+
 
         <ImageButton
             android:id="@+id/menuButton"
@@ -182,11 +197,16 @@
             android:background="@null"
             android:src="@drawable/today" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/needseed" />
 
+        <ImageButton
+            android:id="@+id/timerbutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:padding="17dp"
+            android:src="@drawable/timer" />
 
         <ImageButton
             android:id="@+id/addbutton"

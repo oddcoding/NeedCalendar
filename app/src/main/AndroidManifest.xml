@@ -38,6 +38,8 @@
             android:name="com.example.needcalendar.RegisterActivity"/>
         <activity
             android:name="com.example.needcalendar.list_schedule"/>
+        <activity
+            android:name="com.example.needcalendar.timer"/>
     </application>
 
 </manifest>

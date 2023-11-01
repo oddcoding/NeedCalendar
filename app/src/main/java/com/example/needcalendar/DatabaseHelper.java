@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
+import android.media.Image;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +16,13 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "YourDatabaseName.db";
     private static final int DATABASE_VERSION = 1;
-
     public static final String TABLE_NAME = "your_table_name";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_PLACE = "place";
     public static final String COLUMN_MEMO = "memo";
+    public static final String COLUMN_IS_CHECKED = "isChecked";
+
 
     // 데이터베이스 생성 SQL 문
 //    private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "("
@@ -28,12 +32,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //            + COLUMN_MEMO + " text not null);";
 
     private static final String DATABASE_CREATE =
-            "CREATE TABLE your_table_name (" +
-            "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "title TEXT," +
-            "place TEXT," +
-            "memo TEXT" +
-            ");";
+            "CREATE TABLE " + TABLE_NAME + " (" +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_TITLE + " TEXT, " +
+                    COLUMN_PLACE + " TEXT, " +
+                    COLUMN_MEMO + " TEXT, " +
+                    COLUMN_IS_CHECKED + " INTEGER" + // 쉼표 추가
+                    ");";
 
 
     public DatabaseHelper(Context context) {
@@ -54,20 +59,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public long insertData(String title, String place, String memo) {
+    public long insertData(String title, String place, String memo, boolean isChecked) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
         values.put(COLUMN_PLACE, place);
         values.put(COLUMN_MEMO, memo);
-
+        values.put(COLUMN_IS_CHECKED, isChecked ? 1 : 0);
         // 데이터를 데이터베이스에 추가하고 결과를 반환합니다.
         return db.insert(TABLE_NAME, null, values);
     }
 
     //데이터 수정
-    public long updateData(String title, String place, String memo) {
+    public long updateData(String title, String place, String memo, boolean isChecked) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -75,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PLACE, place);
         values.put(COLUMN_MEMO, memo);
 
+        values.put(COLUMN_IS_CHECKED, isChecked ? 1 : 0);
         // 데이터를 특정 ID 값에 해당하는 레코드에만 업데이트합니다.
         return db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(title)});
     }
@@ -96,32 +102,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
     public List<ListItem> getAllItems() {
         List<ListItem> items = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_PLACE, COLUMN_MEMO};
+        String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_PLACE, COLUMN_MEMO, COLUMN_IS_CHECKED};
 
-        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
-
-        Log.d("CursorDebug", "COLUMN_ID Index: " + cursor.getColumnIndex(COLUMN_ID));
-        Log.d("CursorDebug", "COLUMN_TITLE Index: " + cursor.getColumnIndex(COLUMN_TITLE));
-        Log.d("CursorDebug", "COLUMN_PLACE Index: " + cursor.getColumnIndex(COLUMN_PLACE));
-        Log.d("CursorDebug", "COLUMN_MEMO Index: " + cursor.getColumnIndex(COLUMN_MEMO));
-
+        String orderBy = COLUMN_IS_CHECKED + " DESC"; // isChecked 값이 1인 것을 우선 정렬
+        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, orderBy);
 
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
             String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE));
             String place = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLACE));
             String memo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MEMO));
+            int isChecked = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_CHECKED));
 
-            ListItem item = new ListItem(id, title, place, memo);
+            ListItem item = new ListItem(id, title, place, memo, isChecked);
             items.add(item);
+
+
+            if (isChecked == 1) {
+                // 연두색으로 색을 변경하는 코드를 작성하세요
+                // 예를 들어, item 또는 체크리스트 뷰의 배경 색을 변경할 수 있습니다
+                item.setBackgroundColor(Color.GREEN);
+            }
+
         }
 
         cursor.close();
         return items;
     }
+
 
 }

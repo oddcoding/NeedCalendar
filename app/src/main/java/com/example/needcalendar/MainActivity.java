@@ -3,6 +3,7 @@ package com.example.needcalendar;
 import static com.example.needcalendar.CalendarUtils.daysInMonthArray;
 import static com.example.needcalendar.CalendarUtils.monthYearFromDate;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +28,11 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
@@ -95,6 +96,18 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 Intent intent5 = new Intent(getApplicationContext(), add_schedule.class);
 
                 startActivity(intent5);
+            }
+        });
+
+        // 타이머 화면 연결
+        imageButton = findViewById(R.id.timerbutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent6 = new Intent(getApplicationContext(), timer.class);
+
+                startActivity(intent6);
             }
         });
 
