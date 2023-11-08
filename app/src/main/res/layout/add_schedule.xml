@@ -22,10 +22,9 @@
                 android:layout_height="30dp"
                 android:layout_margin="15dp"
                 android:text="일정"
+                android:textColor="@color/green"
+                android:textStyle="bold"
                 android:textSize="20sp" />
-
-
-
 
         </LinearLayout>
 
@@ -206,16 +205,6 @@
             android:text="  메모"
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
-
-        <CheckBox
-            android:id="@+id/myCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="체크리스트 고정"
-            android:checked="false"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-        />
 
         <Button
             android:id="@+id/ok"

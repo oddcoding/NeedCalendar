@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         initWidgets();
         CalendarUtils.selectedDate = LocalDate.now();
@@ -50,20 +51,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
-        // 주별 화면 연결 -> 일정 리스트로 수정 부탁.
-        imageButton = findViewById(R.id.weekbutton);
+        // 체크리스트 일정 저장화면
+        imageButton = findViewById(R.id.checklistbutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent2 = new Intent(getApplicationContext(), list_schedule.class);
+                Intent intent2 = new Intent(getApplicationContext(), add_checklist.class);
 
                 startActivity(intent2);
             }
         });
 
 
-        // 일별 화면 연결 -> 체크리스트로 수정 부탁.
+        // 체크리스트 화면 연결
         imageButton = findViewById(R.id.todaybutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             @Override
             public void onClick(View view) {
 
-                Intent intent6 = new Intent(getApplicationContext(), timer.class);
+                Intent intent5 = new Intent(getApplicationContext(), timer.class);
 
-                startActivity(intent6);
+                startActivity(intent5);
             }
         });
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
         DBHelper dbHelper = new DBHelper(this); // 또는 해당 컨텍스트에 맞게 인스턴스화
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(this,daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);

@@ -3,7 +3,6 @@ package com.example.needcalendar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,10 @@ import java.util.List;
 
 public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.ViewHolder> {
 
-    private List<ListItem> checklistItems;
+    private List<ListCheck> checklistItems;
     private Context mContext;
 
-    public ChecklistAdapter(List<ListItem> items, Context context) {
+    public ChecklistAdapter(List<ListCheck> items, Context context) {
 
         this.checklistItems = items;
         this.mContext = context;
@@ -37,11 +36,11 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListItem currentItem = checklistItems.get(position);
+        ListCheck currentItem = checklistItems.get(position);
         holder.titleTextView.setText(currentItem.getTitle());
         holder.placeTextView.setText(currentItem.getPlace());
         holder.memoTextView.setText(currentItem.getMemo());
-       
+
     }
 
     @Override
@@ -52,10 +51,6 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-
-        public TextView edittext1;
-        public TextView edittext2;
-        public TextView edittext3;
         private Context mContext;
         public CheckBox checkbox1;
         public TextView titleTextView;
@@ -75,7 +70,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
                 public void onClick(View view) {
                     int curPos = getAdapterPosition();// 현재 리스트 아이템 위치
                     if (curPos != RecyclerView.NO_POSITION) {
-                        ListItem todoItem = checklistItems.get(curPos);
+                        ListCheck todoItem = checklistItems.get(curPos);
                         Context context = view.getContext();
 
                         String[] strChoiceItems = {"수정하기", "삭제하기"};
@@ -85,19 +80,19 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
                         builder.setItems(strChoiceItems, new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialogInterface, int position) {
-                               if(position == 0){
+                                if(position == 0){
 
 
-                               }
-                            else if(position == 1 ){
-                                   //delete UI
-                                   deleteData(todoItem, curPos);
+                                }
+                                else if(position == 1 ){
+                                    //delete UI
+                                    deleteData(todoItem, curPos);
 
-                               }
+                                }
                             }
-                            private void deleteData(ListItem todoItem, int curPos) {
+                            private void deleteData(ListCheck todoItem, int curPos) {
                                 if (mContext != null) {
-                                    DatabaseHelper dbHelper = new DatabaseHelper(mContext);
+                                    DBcheck dbHelper = new DBcheck(mContext);
                                     long deletedItemId = dbHelper.deleteData(todoItem.getId()); // 여기서 getId()는 아이템의 고유 ID를 반환하는 메서드입니다.
                                     dbHelper.close();
 
@@ -127,4 +122,3 @@ public class ChecklistAdapter extends RecyclerView.Adapter<ChecklistAdapter.View
     }
 
 }
-

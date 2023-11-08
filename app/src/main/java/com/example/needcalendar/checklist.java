@@ -1,10 +1,8 @@
 package com.example.needcalendar;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +27,7 @@ public class checklist extends RecyclerView.Adapter<checklist.BoardViewHolder> {
     @Override
     public BoardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-    return new BoardViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false));
+        return new BoardViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false));
 
     }
 
@@ -57,7 +55,6 @@ public class checklist extends RecyclerView.Adapter<checklist.BoardViewHolder> {
         private TextView title;
         private TextView place;
         private TextView memo;
-        private ImageView imageView;
 
         public BoardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,10 +62,9 @@ public class checklist extends RecyclerView.Adapter<checklist.BoardViewHolder> {
             title = itemView.findViewById(R.id.item_board_title);
             place = itemView.findViewById(R.id.item_board_place);
             memo = itemView.findViewById(R.id.item_board_memo);
-            imageView = itemView.findViewById(R.id.imageView3);
         }
 
 
     }
 
-    }
+}
