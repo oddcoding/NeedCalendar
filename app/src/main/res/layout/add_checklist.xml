@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#EEEEEE"
-            android:hint="  일정 제목"
+            android:hint="  일정 제목    "
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="#EEEEEE"
-            android:text="  장소"
+            android:text="  장소 "
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
         <EditText
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="#EEEEEE"
-            android:text="  메모"
+            android:text="  메모  "
             android:privateImeOptions="defaultInputmode=korean"
             android:gravity="center_vertical" />
 

@@ -40,6 +40,8 @@
             android:name="com.example.needcalendar.add_checklist"/>
         <activity
             android:name="com.example.needcalendar.timer"/>
+        <activity
+            android:name="com.example.needcalendar.seed"/>
     </application>
 
 </manifest>
